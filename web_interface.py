@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import state
 
 app = Flask(__name__)
 
@@ -10,8 +11,10 @@ def init():
 
 @app.route('/')
 def index():
-    
-    return render_template('index.html')
+    vm = {
+        'nfc_status': state.get_nfc_status()
+    }
+    return render_template('index.html', vm=vm)
 
 @app.route('/settings')
 def settings():

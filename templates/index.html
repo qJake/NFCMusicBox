@@ -1,5 +1,14 @@
 {% extends "layout/base.html" %}
 
 {% block body %}
-    <h1>Hello!</h1>
+    <h2>Status</h2>
+    <div>
+        <span class="ui large text">
+            {% if vm.nfc_status %}
+                <i class="green check circle icon"></i> Running
+            {% else %}
+                <i class="red times circle icon"></i> Not Running
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}
