@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NFC Music Player</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/semantic.min.css" integrity="sha512-g/MzOGVPy3OQ4ej1U+qe4D/xhLwUn5l5xL0Fa7gdC258ZWVJQGwsbIR47SWMpRxSPjD0tfu/xkilTy+Lhrl3xg==" crossorigin="anonymous" />
+</head>
+<body>
+    
+    <div class="ui basic container segment">
+        <nav role="navigation" class="ui huge menu">
+            <div class="header item">
+                <i class="music icon"></i> NFC Music Player
+            </div>
+            <a href="/" class="item {% if request.endpoint == 'index' %} active {% endif %}">
+                <i class="home icon"></i> Home
+            </a>
+            <a href="/settings" class="item {% if request.endpoint == 'settings' %} active {% endif %}">
+                <i class="cog icon"></i> Settings
+            </a>
+        </nav>
+
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/semantic.min.js" integrity="sha512-1Nyd5H4Aad+OyvVfUOkO/jWPCrEvYIsQENdnVXt1+Jjc4NoJw28nyRdrpOCyFH4uvR3JmH/5WmfX1MJk2ZlhgQ==" crossorigin="anonymous"></script>
+</body>
+</html>
