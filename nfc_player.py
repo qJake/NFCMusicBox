@@ -2,6 +2,7 @@
 
 import state
 import traceback
+import threading
 from time import sleep
 from pn532 import PN532_SPI
 DEVENV = False
@@ -10,7 +11,12 @@ try:
 except (ImportError, RuntimeError):
     import Mock.GPIO as GPIO
     DEVENV = True
-    
+
+def start_nfc_thread():
+    if not state.get_nfc_status():
+        thread_nfc = threading.Thread(target=init, name='nfc_thread')
+        thread_nfc.start()
+
 def init():
     print('[NFC] Initializing NFC player...')
 
@@ -35,10 +41,11 @@ def init():
         print('[NFC] Waiting for RFID/NFC card...')
         while True:
             # Check if a card is available to read
-            uid = pn532.read_passive_target(timeout=0.5)
-            
-            # Why???
-            # print('.', end="")
+            if not DEVENV:
+                uid = pn532.read_passive_target(timeout=0.5)
+            else:
+                uid = None
+                sleep(1)
 
             # Try again if no card is available.
             if uid is None:
@@ -50,5 +57,6 @@ def init():
         traceback.print_tb(e.__traceback__)
     finally:
         GPIO.cleanup()
+        state.set_nfc_status(False)
     
     # TODO: Maybe try to re-initialize GPIO here...? On a loop? Let the web UI do it?

@@ -1,0 +1,46 @@
+{% extends "layout/base.html" %}
+
+{% block body %}
+    <h1>Tags</h1>
+    <p>
+        <a href="/tags/add" class="ui small green icon labeled button">
+            <i class="plus icon"></i> Add Tag
+        </a>
+    </p>
+    <table class="ui celled collapsing definition table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>NFC Tag ID</th>
+                <th>Song</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if not vm.tags %}
+                <tr>
+                    <td colspan="3">
+                        <em>You have no tags defined!</em>
+                    </td>
+                </tr>
+            {% else %}
+                {% for t in vm.tags %}
+                    <tr>
+                        <td>
+                            <a href="/actions/tags/delete?uid={{ t.uid }}" class="ui tiny red circular icon button">
+                                <i class="trash icon"></i>
+                            </a>
+                        </td>
+                        <td>{{ t.uid }}</td>
+                        <td>{{ t.name | replace('.mp3', '') | replace('_', ' ') }}</td>
+                        <td>
+                            <a href="/actions/tags/play?uid={{ t.uid }}" class="ui small green icon labeled button">
+                                <i class="play icon"></i> Play Now
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

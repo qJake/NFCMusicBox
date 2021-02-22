@@ -1,14 +1,66 @@
 {% extends "layout/base.html" %}
 
 {% block body %}
-    <h2>Status</h2>
-    <div>
-        <span class="ui large text">
-            {% if vm.nfc_status %}
-                <i class="green check circle icon"></i> Running
-            {% else %}
-                <i class="red times circle icon"></i> Not Running
-            {% endif %}
-        </span>
+    <div class="ui grid">
+        <div class="stackable doubling three column row">
+            <div class="column">
+                <div class="ui segment">
+                    <h3>NFC Reader</h3>
+                    <div>
+                        <span class="ui large text">
+                            {% if vm.nfc_status %}
+                                <i class="green check circle icon"></i> Running
+                            {% else %}
+                                <i class="red times circle icon"></i> Not Running<br /><br />
+                                <a href="/actions/initnfc" class="ui green icon labeled button">
+                                    <i class="tag icon"></i> Start NFC Reader
+                                </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui segment">
+                    <h3>Media Player</h3>    
+                        {% if vm.is_stopped %}
+                            <p><span class="ui large text"><i class="red square icon"></i> Stopped</span></p>
+                            <p>{% if vm.song_name %}{{ vm.song_name | replace('.mp3', '') | replace('_', ' ') }}{% else %}<em>No song loaded!</em>{% endif %}</p>
+                            <p>
+                                <a href="/actions/play" class="ui green icon labeled button">
+                                    <i class="play icon"></i> Play
+                                </a>
+                            </p>
+                        {% elif vm.is_playing %}
+                            <p><span class="ui large text"><i class="green play icon"></i> Playing</span></p>
+                            <p>{% if vm.song_name %}{{ vm.song_name | replace('.mp3', '') | replace('_', ' ') }}{% else %}<em>No song loaded!</em>{% endif %}</p>
+                            <p>
+                                <a href="/actions/pause" class="ui yellow icon labeled button">
+                                    <i class="pause icon"></i> Pause
+                                </a>
+                                <a href="/actions/stop" class="ui red icon labeled button">
+                                    <i class="square icon"></i> Stop
+                                </a>
+                            </p>
+                        {% elif vm.is_paused %}
+                            <p><span class="ui large text"><i class="yellow pause icon"></i> Paused</span></p>
+                            <p>{% if vm.song_name %}{{ vm.song_name | replace('.mp3', '') | replace('_', ' ') }}{% else %}<em>No song loaded!</em>{% endif %}</p>
+                            <p>
+                                <a href="/actions/play" class="ui green icon labeled button">
+                                    <i class="play icon"></i> Play
+                                </a>
+                            </p>
+                        {% endif %}
+                        <div class="ui tiny buttons">
+                            <a href="/actions/vol?vol=0.1" class="ui button">10%</a>
+                            <a href="/actions/vol?vol=0.2" class="ui button">25%</a>
+                            <a href="/actions/vol?vol=0.4" class="ui button">50%</a>
+                            <a href="/actions/vol?vol=0.65" class="ui button">75%</a>
+                            <a href="/actions/vol?vol=1.0" class="ui button">100%</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

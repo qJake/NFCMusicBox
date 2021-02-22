@@ -1,0 +1,28 @@
+{% extends "layout/base.html" %}
+
+{% block body %}
+<h2>Add Tag</h2>
+<div class="ui grid">
+    <div class="doubling stackable three column row">
+        <div class="column">
+            <div class="ui segment">
+                <form class="ui form" method="post" enctype="multipart/form-data">
+                    <div class="field">
+                        <label for="uid">Tag UID</label>
+                        <input id="uid" name="uid" type="text" placeholder="000000000000000000000">
+                    </div>
+                    <div class="field">
+                        <label for="song">Song</label>
+                        <input id="song" name="song" type="file">
+                    </div>
+                    <div class="field">
+                        <button type="submit" class="ui green icon labeled button">
+                            <i class="plus icon"></i> Add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
