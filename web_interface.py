@@ -75,19 +75,25 @@ def tags():
 
 @app.route('/tags/add', methods=['GET'])
 def tags_add():
-    return render_template('tags_add.html')
+    return render_template('tags_add.html', vm={ 'error': request.args.get('error') })
 
 @app.route('/tags/add', methods=['POST'])
 def tags_add_post():
     storage = state.get_storage()
 
     songfile = request.files['song']
-    if songfile:
-        storage.add_song(songfile, secure_filename(songfile.filename.replace(' ', '_')))
+    songname = songfile.filename.replace(' ', '_')
+    if songfile is not None \
+       and request.form['uid'] is not None \
+       and len(request.form['uid']) > 0 \
+       and songname.lower().endswith('.mp3'):
+        storage.add_song(songfile, secure_filename(songname))
+    else:
+        return redirect('/tags/add?error=1')
 
     newtag = {
         'uid': request.form['uid'],
-        'name': songfile.filename
+        'name': songname
     }
     try:
         storage.add_tag(newtag)

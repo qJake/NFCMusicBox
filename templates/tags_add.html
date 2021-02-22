@@ -2,13 +2,22 @@
 
 {% block body %}
 <h2>Add Tag</h2>
+{% if vm.error %}
+<div class="ui error icon compact message">
+    <i class="times circle icon"></i>
+    <div class="content">
+        <div class="header">Validation Error</div>
+        <p>You're missing the tag ID or file upload, or you didn't upload an .mp3 file. Try again!</p>
+    </div>
+</div>
+{% endif %}
 <div class="ui grid">
     <div class="doubling stackable three column row">
         <div class="column">
             <div class="ui segment">
                 <form class="ui form" method="post" enctype="multipart/form-data">
                     <div class="field">
-                        <label for="uid">Tag UID</label>
+                        <label for="uid">NFC Tag ID</label>
                         <input id="uid" name="uid" type="text" placeholder="000000000000000000000">
                     </div>
                     <div class="field">

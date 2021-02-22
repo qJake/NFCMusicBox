@@ -36,8 +36,12 @@ class TagStorage:
             tag = utils.select_tag_index(data['tags'], tag_uid)
 
             if tag is not None:
+                try:
+                    os.remove(self.to_full_path(data['tags'][tag]['name']))
+                except Exception as e:
+                    print('Error while deleting file:')
+                    print(e)
                 del data['tags'][tag]
-                os.remove(self.to_full_path(data['tags']['name']))
 
         self._write(data)
     

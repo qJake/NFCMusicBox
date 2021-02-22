@@ -2,8 +2,6 @@ import os
 import state
 import pygame
 
-MUSIC_END = 25
-
 class MediaPlayer:
 
     STATE_INIT = 0
@@ -26,9 +24,9 @@ class MediaPlayer:
         state.set_song_name(tail)
         pygame.mixer.music.load(name)
         pygame.mixer.music.set_volume(state.get_vol())
+        self.state = self.STATE_STOPPED
     
     def play(self):
-        pygame.mixer.music.set_endevent(MUSIC_END)
         try:
             if self.state == self.STATE_PAUSED:
                 pygame.mixer.music.unpause()
