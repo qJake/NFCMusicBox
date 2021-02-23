@@ -1,5 +1,6 @@
 # wget --no-cache -O run.sh https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh; sudo chmod +x run.sh; ./run.sh
 
+clear
 echo =====================
 echo === NFC Music Box ===
 echo =====================
@@ -7,7 +8,6 @@ echo
 read -p $'Does this system require sudo? [y/N] ' needsudo
 
 echo Preparing...
-echo
 cd /
 if [ "$needsudo" = "y" ]
 then
@@ -25,7 +25,17 @@ echo
 echo Pulling...
 echo
 
+
 cd ~
+
+if [ -d '~/nfc-music-box' ]
+then
+    cd nfc-music-box
+    ls -A1 | xargs rm -rf
+    cd ..
+    rmdir nfc-music-box
+fi
+
 git clone https://github.com/qJake/NFCMusicBox.git nfc-music-box
 cd nfc-music-box
 
