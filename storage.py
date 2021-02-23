@@ -8,7 +8,12 @@ class TagStorage:
         self.dbname = dbname
         
         if not os.path.exists(storage_path):
-            os.mkdir(storage_path)
+            try:
+                os.mkdir(storage_path)
+            except PermissionError as pe:
+                print('Fatal error: No permission to write to: %s' % self.storage_path)
+                print('Linux: Run as sudo?')
+                raise pe
     
     def get_tags(self):
         data = self._read()
