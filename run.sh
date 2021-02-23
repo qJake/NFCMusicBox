@@ -11,7 +11,7 @@ echo Preparing...
 cd /
 if [ "$needsudo" = "y" ]
 then
-    sudo echo Sudo elevated.
+    sudo echo Elevating...
     sudo apt-get update -y
     sudo apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
     sudo python3 -m pip install flask RPi Mock.GPIO pygame spidev
@@ -21,15 +21,16 @@ else
     python3 -m pip install flask RPi Mock.GPIO pygame spidev
 fi
 
-echo
 echo Pulling...
 echo
-
 
 cd ~
 
 if [ -d '~/nfc-music-box' ]
 then
+    echo Cleaning...
+    echo
+
     cd nfc-music-box
     ls -A1 | xargs rm -rf
     cd ..
@@ -39,7 +40,6 @@ fi
 git clone https://github.com/qJake/NFCMusicBox.git nfc-music-box
 cd nfc-music-box
 
-echo
 echo Running...
 echo
 
