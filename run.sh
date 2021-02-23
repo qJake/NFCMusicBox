@@ -5,9 +5,8 @@ echo =====================
 echo === NFC Music Box ===
 echo =====================
 echo 
-read -p $'Does this system require sudo? [y/N] ' needsudo
-
 echo Preparing...
+
 cd /
 apt-get update -y
 apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
@@ -15,6 +14,7 @@ python3 -m pip install flask RPi Mock.GPIO pygame spidev
 
 echo Pulling...
 echo
+
 cd ~
 
 if [ -d '~/nfc-music-box' ]
