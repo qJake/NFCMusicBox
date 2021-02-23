@@ -1,4 +1,4 @@
-# wget -O - https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh | bash
+# wget --no-cache -O run.sh https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh; sudo chmod +x run.sh; ./run.sh
 
 echo =====================
 echo === NFC Music Box ===
@@ -13,12 +13,12 @@ if [ "$needsudo" = "y" ]
 then
     sudo echo Elevated
     sudo apt-get update -y
-    sudo apt-get install git python3 wget python3-pip -y
-    sudo python3 -m pip install flask RPi Mock.GPIO pygame
+    sudo apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio -y
+    sudo python3 -m pip install flask RPi Mock.GPIO pygame spidev
 else
     apt-get update -y
-    apt-get install git python3 wget python3-pip -y
-    python3 -m pip install flask RPi Mock.GPIO pygame
+    apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio -y
+    python3 -m pip install flask RPi Mock.GPIO pygame spidev
 fi
 
 echo
