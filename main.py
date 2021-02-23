@@ -24,6 +24,8 @@ def start():
 
     nfc_player.start_nfc_thread()
 
+    nfc_player.get_nfc_reader().onTagRead += print_nfc_tag
+
     web_interface.init()
 
     player = MediaPlayer()
@@ -32,6 +34,9 @@ def start():
     # Blocks, keep last.
     web_interface.run_wait()
         
+def print_nfc_tag(tag):
+    print('[NFC] Read new card with UID: ', tag)
+
 def get_store_path():
     if platform.system() == 'Windows':
         return os.path.expandvars(STORE_WIN)
