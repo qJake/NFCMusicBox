@@ -1,8 +1,8 @@
 # wget -O - https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh | bash
 
-echo *********************
-echo *** NFC Music Box ***
-echo *********************
+echo =====================
+echo === NFC Music Box ===
+echo =====================
 echo 
 read -p $'Does this system require sudo? [y/N] ' needsudo
 
