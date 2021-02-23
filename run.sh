@@ -14,11 +14,11 @@ then
     sudo echo Elevated
     sudo apt-get update -y
     sudo apt-get install git python3 wget python3-pip -y
-    sudo python3 -m pip install flask GPIO Mock.GPIO pygame libaudio2-dev
+    sudo python3 -m pip install flask RPi Mock.GPIO pygame
 else
     apt-get update -y
     apt-get install git python3 wget python3-pip -y
-    python3 -m pip install flask GPIO Mock.GPIO pygame libaudio2-dev
+    python3 -m pip install flask RPi Mock.GPIO pygame
 fi
 
 echo
