@@ -11,13 +11,13 @@ echo Preparing...
 cd /
 if [ "$needsudo" = "y" ]
 then
-    sudo echo Elevated
+    sudo echo Sudo elevated.
     sudo apt-get update -y
-    sudo apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio -y
+    sudo apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
     sudo python3 -m pip install flask RPi Mock.GPIO pygame spidev
 else
     apt-get update -y
-    apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio -y
+    apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
     python3 -m pip install flask RPi Mock.GPIO pygame spidev
 fi
 
