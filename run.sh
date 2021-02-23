@@ -43,4 +43,10 @@ cd nfc-music-box
 echo Running...
 echo
 
-python3 main.py
+if [ "$needsudo" = "y" ]
+then
+    # Temporary, easier than messing around with Linux permissions...
+    sudo python3 main.py
+else
+    python3 main.py
+fi
