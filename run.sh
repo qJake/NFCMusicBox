@@ -1,12 +1,24 @@
 # wget -O - https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh | bash
 
+echo *********************
+echo *** NFC Music Box ***
+echo *********************
+echo 
+read -p $'Does this system require sudo? [y/N] ' needsudo
+
 echo Preparing...
 echo
-
 cd /
-apt-get update -y
-apt-get install git python3 wget python3-pip -y
-python3 -m pip install flask GPIO Mock.GPIO pygame libaudio2-dev
+if [ "$needsudo" = "y" ]; then
+    sudo echo Elevated
+    sudo apt-get update -y
+    sudo apt-get install git python3 wget python3-pip -y
+    sudo python3 -m pip install flask GPIO Mock.GPIO pygame libaudio2-dev
+else
+    apt-get update -y
+    apt-get install git python3 wget python3-pip -y
+    python3 -m pip install flask GPIO Mock.GPIO pygame libaudio2-dev
+fi
 
 echo
 echo Pulling...
