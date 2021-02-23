@@ -1,4 +1,4 @@
-# wget --no-cache -O run.sh https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh; sudo chmod +x run.sh; ./run.sh
+# wget --no-cache -O run.sh https://raw.githubusercontent.com/qJake/NFCMusicBox/main/run.sh; sudo chmod +x run.sh; sudo ./run.sh
 
 clear
 echo =====================
@@ -9,21 +9,12 @@ read -p $'Does this system require sudo? [y/N] ' needsudo
 
 echo Preparing...
 cd /
-if [ "$needsudo" = "y" ]
-then
-    sudo echo Elevating...
-    sudo apt-get update -y
-    sudo apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
-    sudo python3 -m pip install flask RPi Mock.GPIO pygame spidev
-else
-    apt-get update -y
-    apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
-    python3 -m pip install flask RPi Mock.GPIO pygame spidev
-fi
+apt-get update -y
+apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl-ttf2.0-0 python3-sdl2 -y
+python3 -m pip install flask RPi Mock.GPIO pygame spidev
 
 echo Pulling...
 echo
-
 cd ~
 
 if [ -d '~/nfc-music-box' ]
@@ -42,11 +33,4 @@ cd nfc-music-box
 
 echo Running...
 echo
-
-if [ "$needsudo" = "y" ]
-then
-    # Temporary, easier than messing around with Linux permissions...
-    sudo python3 main.py
-else
-    python3 main.py
-fi
+python3 main.py
