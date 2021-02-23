@@ -9,7 +9,8 @@ read -p $'Does this system require sudo? [y/N] ' needsudo
 echo Preparing...
 echo
 cd /
-if [ "$needsudo" = "y" ]; then
+if [ "$needsudo" = "y" ]
+then
     sudo echo Elevated
     sudo apt-get update -y
     sudo apt-get install git python3 wget python3-pip -y
