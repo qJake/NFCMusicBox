@@ -13,7 +13,7 @@ apt-get install git python3 wget python3-pip python3-dev python3-rpi.gpio libsdl
 python3 -m pip install flask RPi Mock.GPIO pygame spidev
 
 echo Pulling...
-echo
+echo 
 
 cd ~
 
