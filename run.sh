@@ -14,17 +14,17 @@ python3 -m pip install flask RPi Mock.GPIO pygame spidev
 echo Pulling...
 echo 
 
-if [ -d ~/nfc-music-box ]
+if [ -d nfc-music-box/ ]
 then
     echo Cleaning...
     echo    
-    ls ~/nfc-music-box -A1 | xargs rm -rf
+    ls nfc-music-box/ -A1 | xargs rm -rf
     cd ..
-    rmdir ~/nfc-music-box
+    rmdir nfc-music-box/
 fi
 
-git clone https://github.com/qJake/NFCMusicBox.git ~/nfc-music-box
+git clone https://github.com/qJake/NFCMusicBox.git nfc-music-box
 
 echo Running...
 echo
-python3 ~/nfc-music-box/main.py &
+python3 nfc-music-box/main.py
