@@ -10,14 +10,22 @@ class MediaPlayer:
     STATE_STOPPED = 3
 
     state = STATE_INIT
+    ding = None
 
     def __init__(self):
         pygame.mixer.init()
         self.state = self.STATE_STOPPED
+        self.ding = pygame.mixer.Sound(file='sound/ding.wav')
 
     def set_vol(self, vol=1.0):
         pygame.mixer.music.set_volume(min(1, max(0, vol)))
         state.set_vol(vol)
+
+    def play_ding(self):
+        vol = state.get_vol()
+        if self.ding is not None:
+            self.ding.set_volume(vol)
+            self.ding.play()
 
     def load(self, name):
         _, tail = os.path.split(name)

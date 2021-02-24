@@ -8,12 +8,14 @@ MEDIA_PLAYER = 'mediaplayer'
 STORAGE = 'storage'
 VOL = 'vol'
 SONGNAME = 'songname'
+LAST_TAG = 'lasttag'
 
 def init():
     set(NFC_STATUS, False)
     set(MEDIA_PLAYER, None)
     set(STORAGE, None)
     set(SONGNAME, None)
+    set(LAST_TAG, None)
     set(VOL, 1.0)
 
 def get_nfc_status():
@@ -21,6 +23,12 @@ def get_nfc_status():
 
 def set_nfc_status(val):
     set(NFC_STATUS, val)
+
+def get_last_tag():
+    return get(LAST_TAG)
+
+def set_last_tag(val):
+    set(LAST_TAG, val)
 
 def get_song_name():
     return get(SONGNAME)

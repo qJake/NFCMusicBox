@@ -14,24 +14,19 @@ except (ImportError, RuntimeError):
     import Mock.GPIO as GPIO
     DEVENV = True
 
+onLoad = Event()
+onTagRead = Event()
+
 def start_nfc_thread():
+    nfc = NFCReader()
     if not state.get_nfc_status():
-        thread_nfc = threading.Thread(target=init, name='nfc_thread')
+        thread_nfc = threading.Thread(target=nfc.init, name='nfc_thread')
         thread_nfc.start()
 
-def init():
-    global nfc
-    nfc = NFCReader()
-
-def get_nfc_reader():
-    global nfc
-    return nfc
-
 class NFCReader:
-    def __init__(self):
+    def init(self):
         print('[NFC] Initializing NFC player...')
 
-        self.onTagRead = Event()
         self.lastTag = None
 
         try:
@@ -52,6 +47,7 @@ class NFCReader:
 
             state.set_nfc_status(True)
             print('[NFC] Ready!')
+            onLoad.fire()
             print('[NFC] Waiting for RFID/NFC card...')
             while True:
                 # Check if a card is available to read
@@ -68,7 +64,7 @@ class NFCReader:
                     tag = int.from_bytes(uid, byteorder=sys.byteorder, signed=False)
                     if tag != self.lastTag:
                         self.lastTag = tag
-                        self.onTagRead.fire(tag)
+                        onTagRead.fire(tag)
                         # [hex(i) for i in uid] <-- do we need this? probably not...?
         except Exception as e:
             print('[NFC] Error doing NFC stuff!')

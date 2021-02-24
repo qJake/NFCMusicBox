@@ -1,10 +1,11 @@
 import state
 import utils
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, cli
 from werkzeug.utils import secure_filename
 from nfc_player import start_nfc_thread
 
 app = Flask(__name__)
+cli.show_server_banner = lambda *_: None
 
 def init():
     print('Initializing web interface...')
@@ -75,6 +76,9 @@ def tags():
 
 @app.route('/tags/add', methods=['GET'])
 def tags_add():
+    vm = {
+        'last_tag': state.get_last_tag()
+    }
     return render_template('tags_add.html', vm={ 'error': request.args.get('error') })
 
 @app.route('/tags/add', methods=['POST'])
