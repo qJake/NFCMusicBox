@@ -14,7 +14,7 @@ python3 -m pip install flask RPi Mock.GPIO pygame spidev
 echo Pulling...
 echo 
 
-if [ -d '~/nfc-music-box' ]
+if [ -d ~/nfc-music-box ]
 then
     echo Cleaning...
     echo    
