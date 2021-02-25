@@ -65,7 +65,7 @@ class NFCReader:
                 else:
                     tag = int.from_bytes(uid, byteorder=sys.byteorder, signed=False)
                     self.lastTag = tag
-                    onTagRead.fire(tag)
+                    onTagRead.fire(str(tag).strip())
                     # [hex(i) for i in uid] <-- do we need this? probably not...?
                     sleep(3) # don't spam the reader
         except Exception as e:
