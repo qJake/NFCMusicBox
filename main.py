@@ -55,7 +55,7 @@ def store_last_tag(tag):
     state.set_last_tag(tag)
 
 def play_requested_song(tag):
-    
+
     if tag == STOP_NFC_UID:
         player = state.get_player()
         player.play_ding()
@@ -73,7 +73,7 @@ def play_requested_song(tag):
         if tagDef is not None:
             player = state.get_player()
             player.play_ding()
-            sleep(0.3)
+            sleep(0.5)
             player.load(tag=tag)
             player.play()
 

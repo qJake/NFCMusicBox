@@ -68,7 +68,8 @@ class MediaPlayer:
     def load(self, name=None, tag=None):
         if name is None and tag is None:
             raise 'Must pass name or tag to load().'
-
+        
+        song = None
         if name is not None:
             foundSong = next((s for s in self.songCache if s['songFile'] == name), None)
             if foundSong is not None:
