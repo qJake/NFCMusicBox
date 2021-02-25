@@ -12,13 +12,29 @@ class MediaPlayer:
     state = STATE_INIT
     ding = None
 
+    songCache = []
+
     def __init__(self):
-        pygame.mixer.init(48000,-16,2,1024)
+        pygame.mixer.init(frequency=48000, size=-16, channels=2, buffer=1024, allowedchanges=0)
         self.channel1 = pygame.mixer.Channel(1)
         self.channel2 = pygame.mixer.Channel(2)
         self.state = self.STATE_STOPPED
         self.ding = pygame.mixer.Sound(file='sound/ding.wav')
-        self.loadedSong = None
+        self.activeSong = None
+        self.reload_songs()
+
+    def reload_songs(self):
+        print('[Media] Reloading songs...')
+        storage = state.get_storage()
+        tags = storage.get_tags()
+        for t in tags:
+            path = storage.to_full_path(t['name'])
+            self.songCache.append({
+                'tag': t['uid'],
+                'songFile': path,
+                'song': pygame.mixer.Sound(path)
+            })
+            print('Loaded song: %s' % path)
 
     def set_vol(self, vol=1.0):
         self.channel1.set_volume(min(1, max(0, vol)))
@@ -31,7 +47,24 @@ class MediaPlayer:
             self.ding.set_volume(vol)
             self.channel2.play(self.ding)
 
-    def load(self, name):
+    def load(self, name=None, tag=None):
+        if name is None and tag is None:
+            raise 'Must pass name or tag to load().'
+
+        if name is not None:
+            foundSong = next((s for s in self.songCache if s['songFile'] == name), None)
+            if foundSong is not None:
+                tag = foundSong['song']
+                song = foundSong['song']
+        elif tag is not None:
+            foundSong = next((s for s in self.songCache if s['tag'] == tag), None)
+            if foundSong is not None:
+                name = foundSong['songFile']
+                song = foundSong['song']
+
+        if song is None:
+            return
+        
         _, tail = os.path.split(name)
         state.set_song_name(tail)
 
@@ -39,19 +72,19 @@ class MediaPlayer:
         if self.state == self.STATE_PLAYING:
             self.channel1.stop()
 
-        self.loadedSong = pygame.mixer.Sound(name)
+        self.activeSong = song
         self.channel1.set_volume(state.get_vol())
         self.state = self.STATE_STOPPED
     
     def play(self):
-        if self.loadedSong is None:
+        if self.activeSong is None:
             return
 
         try:
             if self.state == self.STATE_PAUSED:
                 self.channel1.unpause()
             else:
-                self.channel1.play(self.loadedSong)
+                self.channel1.play(self.activeSong)
             self.state = self.STATE_PLAYING
         # pylint: disable=no-member
         except pygame.error as e:

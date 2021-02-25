@@ -46,7 +46,7 @@ def on_tag_read(tag):
     play_requested_song(tag)
 
 def print_nfc_tag(tag):
-    print('[NFC] Read new card with UID: ', tag)
+    print('[NFC] Read new card with UID: %s' % tag)
 
 def store_last_tag(tag):
     state.set_last_tag(tag)
@@ -63,8 +63,8 @@ def play_requested_song(tag):
     if tagDef is not None:
         player = state.get_player()
         player.play_ding()
-        sleep(1)
-        player.load(storage.to_full_path(tagDef['name']))
+        sleep(0.3)
+        player.load(tag=tag)
         player.play()
 
 def get_store_path():

@@ -45,6 +45,12 @@ def action_initnfc():
         start_nfc_thread()
     return redirect('/')
 
+@app.route('/actions/reloadsongs')
+def action_reloadsongs():
+    player = state.get_player()
+    player.reload_songs()
+    return redirect('/tags')
+
 @app.route('/actions/stop')
 def action_stop():
     player = state.get_player()
@@ -123,7 +129,7 @@ def tags_play():
     tag = utils.select_tag(tags, uid)
     if tag is not None:
         player = state.get_player()
-        player.load(storage.to_full_path(tag['name']))
+        player.load(name=storage.to_full_path(tag['name']))
         player.play()
     return redirect('/tags')
 

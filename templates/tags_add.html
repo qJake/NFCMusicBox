@@ -18,8 +18,8 @@
                 <form class="ui form" method="post" enctype="multipart/form-data">
                     <div class="field">
                         <label for="uid">NFC Tag ID</label>
-                        <input id="uid" name="uid" type="text" placeholder="00000000001" value="{{ last_tag }}">
-                        <div><small><em>Last tag:</em> {{ last_tag }}</small></div>
+                        <input id="uid" name="uid" type="text" placeholder="00000000001" value="{{ vm.last_tag }}">
+                        <div><small><em>Last tag:</em> {{ vm.last_tag }}</small></div>
                     </div>
                     <div class="field">
                         <label for="song">Song</label>

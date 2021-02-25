@@ -27,8 +27,6 @@ class NFCReader:
     def init(self):
         print('[NFC] Initializing NFC player...')
 
-        self.lastTag = None
-
         try:
             GPIO.setwarnings(False)
 
@@ -64,7 +62,6 @@ class NFCReader:
                     continue
                 else:
                     tag = int.from_bytes(uid, byteorder=sys.byteorder, signed=False)
-                    self.lastTag = tag
                     onTagRead.fire(str(tag).strip())
                     # [hex(i) for i in uid] <-- do we need this? probably not...?
                     sleep(3) # don't spam the reader
