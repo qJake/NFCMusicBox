@@ -2,7 +2,7 @@ import state
 import utils
 from flask import Flask, render_template, request, redirect, cli
 from werkzeug.utils import secure_filename
-from nfc_player import start_nfc_thread
+from nfc_reader import start_nfc_thread
 
 app = Flask(__name__)
 cli.show_server_banner = lambda *_: None
@@ -13,7 +13,7 @@ def init():
     print('Ready!')
 
 def run_wait():
-    app.run()
+    app.run(host='0.0.0.0', port=80)
 
 @app.route('/')
 def index():
