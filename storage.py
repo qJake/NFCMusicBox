@@ -61,7 +61,7 @@ class TagStorage:
         path = self.to_full_path(self.dbname)
         if not os.path.exists(path):
             with open(path, 'w+') as f:
-                f.write('{}')
+                f.write('{"tags":[]}')
 
         with open(path) as f:
             j = json.load(f)
