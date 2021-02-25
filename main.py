@@ -18,6 +18,9 @@ except:
 STORE_WIN = '%localappdata%\\NFCMusicBox\\'
 STORE_LINUX = '/var/lib/nfcmusicbox/'
 
+# Special UID to "stop"
+STOP_NFC_UID = '1732584193'
+
 def start():
     state.init()
 
@@ -52,20 +55,27 @@ def store_last_tag(tag):
     state.set_last_tag(tag)
 
 def play_requested_song(tag):
-    storage = state.get_storage()
-    tags = storage.get_tags()
     
-    if len(tags) == 0:
-        return
-    
-    tagDef = utils.select_tag(storage.get_tags(), tag)
-
-    if tagDef is not None:
+    if tag == STOP_NFC_UID:
         player = state.get_player()
         player.play_ding()
-        sleep(0.3)
-        player.load(tag=tag)
-        player.play()
+        player.stop()
+
+    else:
+        storage = state.get_storage()
+        tags = storage.get_tags()
+        
+        if len(tags) == 0:
+            return
+        
+        tagDef = utils.select_tag(storage.get_tags(), tag)
+
+        if tagDef is not None:
+            player = state.get_player()
+            player.play_ding()
+            sleep(0.3)
+            player.load(tag=tag)
+            player.play()
 
 def get_store_path():
     if platform.system() == 'Windows':

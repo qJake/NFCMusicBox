@@ -2,6 +2,7 @@ import os
 import gc
 import state
 import pygame
+from time import sleep
 
 class MediaPlayer:
 
@@ -20,15 +21,26 @@ class MediaPlayer:
         self.channel1 = pygame.mixer.Channel(1)
         self.channel2 = pygame.mixer.Channel(2)
         self.state = self.STATE_STOPPED
-        self.ding = pygame.mixer.Sound(file='sound/ding.wav')
+        self.s_ding = pygame.mixer.Sound(file='sound/ding.wav')
+        self.s_loading = pygame.mixer.Sound(file='sound/loading.wav')
+        self.s_ready = pygame.mixer.Sound(file='sound/ready.wav')
         self.activeSong = None
+        self.channel1.play(self.s_loading)
+        sleep(2)
         self.reload_songs()
+        sleep(0.3)
+        self.channel1.play(self.s_ready)
 
     def reload_songs(self):
         print('[Media] Reloading songs...')
+
+        if self.state == self.STATE_PLAYING:
+            print('[Media] Stopping playback for song reload...')
+            self.stop()
+
         storage = state.get_storage()
         tags = storage.get_tags()
-        
+
         self.songCache = []
         gc.collect() # clean up the old songs first - this can affect audio playback
 
@@ -49,9 +61,9 @@ class MediaPlayer:
 
     def play_ding(self):
         vol = state.get_vol()
-        if self.ding is not None:
-            self.ding.set_volume(vol)
-            self.channel2.play(self.ding)
+        if self.s_ding is not None:
+            self.s_ding.set_volume(vol)
+            self.channel2.play(self.s_ding)
 
     def load(self, name=None, tag=None):
         if name is None and tag is None:
