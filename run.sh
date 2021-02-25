@@ -25,4 +25,5 @@ git clone https://github.com/qJake/NFCMusicBox.git nfc-music-box
 
 echo Running...
 echo
-python3 nfc-music-box/main.py
+cd nfc-music-box
+python3 main.py
