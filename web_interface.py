@@ -4,6 +4,13 @@ from flask import Flask, render_template, request, redirect, cli
 from werkzeug.utils import secure_filename
 from nfc_reader import start_nfc_thread
 
+DEVENV = False
+try:
+    # pylint: disable=import-error
+    import RPi.GPIO as GPIO
+except:
+    DEVENV = True
+
 app = Flask(__name__)
 cli.show_server_banner = lambda *_: None
 
@@ -13,7 +20,10 @@ def init():
     print('Ready!')
 
 def run_wait():
-    app.run(host='0.0.0.0', port=80)
+    if DEVENV:
+        app.run(host='0.0.0.0', port=5000)
+    else:
+        app.run(host='0.0.0.0', port=80)
 
 @app.route('/')
 def index():
