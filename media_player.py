@@ -1,4 +1,5 @@
 import os
+import gc
 import state
 import pygame
 
@@ -27,14 +28,19 @@ class MediaPlayer:
         print('[Media] Reloading songs...')
         storage = state.get_storage()
         tags = storage.get_tags()
-        for t in tags:
-            path = storage.to_full_path(t['name'])
-            self.songCache.append({
-                'tag': t['uid'],
-                'songFile': path,
-                'song': pygame.mixer.Sound(path)
-            })
-            print('Loaded song: %s' % path)
+        
+        self.songCache = []
+        gc.collect() # clean up the old songs first - this can affect audio playback
+
+        if len(tags) > 0:
+            for t in tags:
+                path = storage.to_full_path(t['name'])
+                self.songCache.append({
+                    'tag': t['uid'],
+                    'songFile': path,
+                    'song': pygame.mixer.Sound(path)
+                })
+                print('Loaded song: %s' % path)
 
     def set_vol(self, vol=1.0):
         self.channel1.set_volume(min(1, max(0, vol)))
