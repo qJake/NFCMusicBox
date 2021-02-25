@@ -25,9 +25,7 @@ def start():
     state.set_storage(storage)
 
     def nfcLoaded():
-        nfc_reader.onTagRead += print_nfc_tag
-        nfc_reader.onTagRead += store_last_tag
-        nfc_reader.onTagRead += play_requested_song
+        nfc_reader.onTagRead += on_tag_read
     nfc_reader.onLoad += nfcLoaded
     nfc_reader.start_nfc_thread()
 
@@ -42,6 +40,11 @@ def start():
     # Blocks, keep last.
     web_interface.run_wait()
         
+def on_tag_read(tag):
+    print_nfc_tag(tag)
+    store_last_tag(tag)
+    play_requested_song(tag)
+
 def print_nfc_tag(tag):
     print('[NFC] Read new card with UID: ', tag)
 
@@ -61,7 +64,7 @@ def play_requested_song(tag):
         player = state.get_player()
         player.play_ding()
         sleep(1)
-        player.load(storage.to_full_path(tag['name']))
+        player.load(storage.to_full_path(tagDef['name']))
         player.play()
 
 def get_store_path():

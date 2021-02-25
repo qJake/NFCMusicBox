@@ -31,7 +31,7 @@ class NFCReader:
 
         try:
             GPIO.setwarnings(False)
-            
+
             pn532 = PN532_SPI(debug=False, reset=20, cs=4)
             #pn532 = PN532_I2C(debug=False, reset=20, req=16)
             #pn532 = PN532_UART(debug=False, reset=20)
@@ -64,10 +64,10 @@ class NFCReader:
                     continue
                 else:
                     tag = int.from_bytes(uid, byteorder=sys.byteorder, signed=False)
-                    if tag != self.lastTag:
-                        self.lastTag = tag
-                        onTagRead.fire(tag)
-                        # [hex(i) for i in uid] <-- do we need this? probably not...?
+                    self.lastTag = tag
+                    onTagRead.fire(tag)
+                    # [hex(i) for i in uid] <-- do we need this? probably not...?
+                    sleep(3) # don't spam the reader
         except Exception as e:
             print('[NFC] Error doing NFC stuff!')
             print(e)

@@ -76,10 +76,10 @@ def tags():
 
 @app.route('/tags/add', methods=['GET'])
 def tags_add():
-    vm = {
+    return render_template('tags_add.html', vm={
+        'error': request.args.get('error'),
         'last_tag': state.get_last_tag()
-    }
-    return render_template('tags_add.html', vm={ 'error': request.args.get('error') })
+    })
 
 @app.route('/tags/add', methods=['POST'])
 def tags_add_post():
