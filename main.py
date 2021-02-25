@@ -2,7 +2,7 @@ import os
 import utils
 import state
 import platform
-import nfc_player
+import nfc_reader
 import web_interface
 from media_player import MediaPlayer
 from storage import TagStorage
@@ -25,11 +25,11 @@ def start():
     state.set_storage(storage)
 
     def nfcLoaded():
-        nfc_player.onTagRead += print_nfc_tag
-        nfc_player.onTagRead += store_last_tag
-        nfc_player.onTagRead += play_requested_song
-    nfc_player.onLoad += nfcLoaded
-    nfc_player.start_nfc_thread()
+        nfc_reader.onTagRead += print_nfc_tag
+        nfc_reader.onTagRead += store_last_tag
+        nfc_reader.onTagRead += play_requested_song
+    nfc_reader.onLoad += nfcLoaded
+    nfc_reader.start_nfc_thread()
 
     web_interface.init()
 

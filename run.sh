@@ -17,10 +17,8 @@ echo
 if [ -d nfc-music-box/ ]
 then
     echo Cleaning...
-    echo    
-    ls nfc-music-box/ -A1 | xargs rm -rf
-    cd ..
-    rmdir nfc-music-box/
+    echo 
+    rm -rfd nfc-music-box/
 fi
 
 git clone https://github.com/qJake/NFCMusicBox.git nfc-music-box
