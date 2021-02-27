@@ -19,7 +19,7 @@ except:
 STORE_WIN = '%localappdata%\\NFCMusicBox\\'
 STORE_LINUX = '/var/lib/nfcmusicbox/'
 
-UPDATE_COMMAND = ['sudo', './update.sh']
+UPDATE_COMMAND = ['/bin/bash', '-s', 'sudo ./update.sh']
 UPDATE_CWD = '/home/pi/nfc-music-box'
 
 # Special UID to "stop"
