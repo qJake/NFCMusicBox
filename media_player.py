@@ -60,6 +60,8 @@ class MediaPlayer:
 
         sleep(0.3)
         self.channel1.play(self.s_ready)
+        
+        self.state = self.STATE_STOPPED
 
     def set_vol(self, vol=1.0):
         self.channel1.set_volume(min(1, max(0, vol)))
