@@ -23,6 +23,9 @@ fi
 
 git clone https://github.com/qJake/NFCMusicBox.git nfc-music-box
 
+mv nfc-music-box/update.sh ./update.sh
+chmod +x ./update.sh
+
 echo Running...
 echo
 bash -c 'cd /home/pi/nfc-music-box && sudo /usr/bin/python3 main.py' &

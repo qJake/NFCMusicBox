@@ -1,3 +1,4 @@
+import main
 import state
 import utils
 from flask import Flask, render_template, request, redirect, cli
@@ -79,6 +80,17 @@ def action_vol():
         pass
     return redirect('/')
     
+# SETTINGS
+
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
+
+@app.route('/actions/settings/update')
+def settings_update():
+    main.update()
+    return redirect('/settings')
+
 # TAGS
 
 @app.route('/tags')
