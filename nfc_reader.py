@@ -58,7 +58,7 @@ class NFCReader:
 
                 # Try again if no card is available.
                 if uid is None:
-                    sleep(1)
+                    sleep(0.5)
                     continue
                 else:
                     tag = int.from_bytes(uid, byteorder=sys.byteorder, signed=False)

@@ -20,23 +20,27 @@ class MediaPlayer:
         pygame.mixer.init(frequency=48000, size=-16, channels=2, buffer=1024, allowedchanges=0)
         self.channel1 = pygame.mixer.Channel(1)
         self.channel2 = pygame.mixer.Channel(2)
-        self.state = self.STATE_STOPPED
         self.s_ding = pygame.mixer.Sound(file='sound/ding.wav')
         self.s_loading = pygame.mixer.Sound(file='sound/loading.wav')
         self.s_ready = pygame.mixer.Sound(file='sound/ready.wav')
         self.activeSong = None
-        self.channel1.play(self.s_loading)
-        sleep(2)
         self.reload_songs()
-        sleep(0.3)
-        self.channel1.play(self.s_ready)
+        self.state = self.STATE_STOPPED
 
     def reload_songs(self):
-        print('[Media] Reloading songs...')
+        if self.state == self.STATE_INIT:
+            return
 
+        print('[Media] Reloading songs...')
+        
         if self.state == self.STATE_PLAYING:
             print('[Media] Stopping playback for song reload...')
             self.stop()
+
+        self.state = self.STATE_INIT
+
+        self.channel1.play(self.s_loading)
+        sleep(2)
 
         storage = state.get_storage()
         tags = storage.get_tags()
@@ -54,18 +58,26 @@ class MediaPlayer:
                 })
                 print('Loaded song: %s' % path)
 
+        sleep(0.3)
+        self.channel1.play(self.s_ready)
+
     def set_vol(self, vol=1.0):
         self.channel1.set_volume(min(1, max(0, vol)))
         self.channel2.set_volume(min(1, max(0, vol)))
         state.set_vol(vol)
 
     def play_ding(self):
+        if self.state == self.STATE_INIT:
+            return
         vol = state.get_vol()
         if self.s_ding is not None:
             self.s_ding.set_volume(vol)
             self.channel2.play(self.s_ding)
 
     def load(self, name=None, tag=None):
+        if self.state == self.STATE_INIT:
+            return
+            
         if name is None and tag is None:
             raise 'Must pass name or tag to load().'
 
@@ -98,6 +110,9 @@ class MediaPlayer:
         self.state = self.STATE_STOPPED
     
     def play(self):
+        if self.state == self.STATE_INIT:
+            return
+
         if self.activeSong is None:
             return
 
