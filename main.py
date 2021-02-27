@@ -19,8 +19,7 @@ except:
 STORE_WIN = '%localappdata%\\NFCMusicBox\\'
 STORE_LINUX = '/var/lib/nfcmusicbox/'
 
-UPDATE_COMMAND = ['/bin/bash', '-s', 'sudo ./update.sh']
-UPDATE_CWD = '/home/pi/nfc-music-box'
+UPDATE_COMMAND = "/bin/bash -c 'cd /home/pi/nfc-music-box && sudo ./update.sh' &"
 
 # Special UID to "stop"
 STOP_NFC_UID = '1732584193'
@@ -91,7 +90,7 @@ def update():
     if platform.system() == 'Windows':
         return # Don't self-upate on Windows, this is only for Pis.
     
-    p = subprocess.Popen(UPDATE_COMMAND, cwd=UPDATE_CWD)
+    os.system(UPDATE_COMMAND)
 
 if __name__ == '__main__':
     start()
