@@ -91,6 +91,11 @@ def settings_update():
     main.update()
     return redirect('/settings')
 
+@app.route('/actions/settings/reboot')
+def settings_reboot():
+    main.reboot()
+    return redirect('/settings')
+
 # TAGS
 
 @app.route('/tags')
