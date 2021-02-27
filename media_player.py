@@ -24,8 +24,8 @@ class MediaPlayer:
         self.s_loading = pygame.mixer.Sound(file='sound/loading.wav')
         self.s_ready = pygame.mixer.Sound(file='sound/ready.wav')
         self.activeSong = None
-        self.reload_songs()
         self.state = self.STATE_STOPPED
+        self.reload_songs()
 
     def reload_songs(self):
         if self.state == self.STATE_INIT:
