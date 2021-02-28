@@ -19,8 +19,8 @@ except:
 STORE_WIN = '%localappdata%\\NFCMusicBox\\'
 STORE_LINUX = '/var/lib/nfcmusicbox/'
 
-UPDATE_COMMAND = "/bin/bash -c '/home/pi/update.sh' &"
-RESTART_COMMAND = "/bin/bash -c 'shutdown -r -f now' &"
+UPDATE_COMMAND = "/bin/bash -c 'sudo /home/pi/update.sh' &"
+RESTART_COMMAND = "/bin/bash -c 'sudo shutdown -r -f now' &"
 
 # Special UID to "stop"
 STOP_NFC_UID = '1732584193'
