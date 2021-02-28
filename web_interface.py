@@ -36,7 +36,8 @@ def index():
         'song_name': state.get_song_name(),
         'is_playing': player.is_state(player.STATE_PLAYING),
         'is_paused': player.is_state(player.STATE_PAUSED),
-        'is_stopped': player.is_state(player.STATE_STOPPED)
+        'is_stopped': player.is_state(player.STATE_STOPPED),
+        'version': main.VERSION
     }
     return render_template('index.html', vm=vm)
 
@@ -88,14 +89,17 @@ def action_vol():
 def logs():
     log_path = '/var/log/nfcmb.log'
     err_path = '/var/log/nfcmb.log'
+
     log = ''
     err = ''
+
     if os.path.exists(log_path):
         with open(log_path) as f:
             log = f.read()
+
     if os.path.exists(err_path):
-        with open(err_path) as f:
-            err = f.read()
+        with open(err_path) as f2:
+            err = f2.read()
         
     return render_template('logs.html', vm={
         'log': log,

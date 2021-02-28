@@ -10,6 +10,8 @@ from storage import TagStorage
 from time import sleep
 from utils import printt
 
+VERSION = '1.6.1'
+
 DEVENV = False
 try:
     # pylint: disable=import-error
