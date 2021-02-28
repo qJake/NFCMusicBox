@@ -6,6 +6,7 @@ import traceback
 import threading
 from event import Event
 from time import sleep
+from utils import printt
 from pn532 import PN532_SPI
 DEVENV = False
 try:
@@ -25,7 +26,7 @@ def start_nfc_thread():
 
 class NFCReader:
     def init(self):
-        print('[NFC] Initializing NFC player...')
+        printt('[NFC] Initializing NFC player...')
 
         try:
             GPIO.setwarnings(False)
@@ -40,15 +41,15 @@ class NFCReader:
                 ver = 0
                 rev = 0
 
-            print('[NFC] Found PN532 with firmware version: {0}.{1}'.format(ver, rev))
+            printt('[NFC] Found PN532 with firmware version: {0}.{1}'.format(ver, rev))
 
             # Configure PN532 to communicate with MiFare cards
             pn532.SAM_configuration()
 
             state.set_nfc_status(True)
-            print('[NFC] Ready!')
+            printt('[NFC] Ready!')
             onLoad.fire()
-            print('[NFC] Waiting for RFID/NFC card...')
+            printt('[NFC] Waiting for RFID/NFC card...')
             while True:
                 # Check if a card is available to read
                 if not DEVENV:
@@ -66,8 +67,8 @@ class NFCReader:
                     # [hex(i) for i in uid] <-- do we need this? probably not...?
                     sleep(3) # don't spam the reader
         except Exception as e:
-            print('[NFC] Error doing NFC stuff!')
-            print(e)
+            printt('[NFC] Error doing NFC stuff!')
+            printt(e)
             traceback.print_tb(e.__traceback__)
         finally:
             GPIO.cleanup()

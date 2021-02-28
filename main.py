@@ -8,6 +8,7 @@ import web_interface
 from media_player import MediaPlayer
 from storage import TagStorage
 from time import sleep
+from utils import printt
 
 DEVENV = False
 try:
@@ -53,7 +54,7 @@ def on_tag_read(tag):
     play_requested_song(tag)
 
 def print_nfc_tag(tag):
-    print('[NFC] Read new card with UID: %s' % tag)
+    printt('[NFC] Read new card with UID: %s' % tag)
 
 def store_last_tag(tag):
     state.set_last_tag(tag)

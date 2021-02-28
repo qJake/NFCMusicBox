@@ -5,6 +5,7 @@ import os
 from flask import Flask, render_template, request, redirect, cli
 from werkzeug.utils import secure_filename
 from nfc_reader import start_nfc_thread
+from utils import printt
 
 DEVENV = False
 try:
@@ -17,9 +18,9 @@ app = Flask(__name__)
 cli.show_server_banner = lambda *_: None
 
 def init():
-    print('Initializing web interface...')
+    printt('Initializing web interface...')
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    print('Ready!')
+    printt('Ready!')
 
 def run_wait():
     if DEVENV:
@@ -178,5 +179,5 @@ def tag_delete():
         storage = state.get_storage()
         storage.remove_tag(uid)
     except Exception as e:
-        print(e)
+        printt(e)
     return redirect('/tags')

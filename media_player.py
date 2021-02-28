@@ -3,6 +3,7 @@ import gc
 import state
 import pygame
 from time import sleep
+from utils import printt
 
 class MediaPlayer:
 
@@ -31,10 +32,10 @@ class MediaPlayer:
         if self.state == self.STATE_INIT:
             return
 
-        print('[Media] Reloading songs...')
+        printt('[Media] Reloading songs...')
         
         if self.state == self.STATE_PLAYING:
-            print('[Media] Stopping playback for song reload...')
+            printt('[Media] Stopping playback for song reload...')
             self.stop()
 
         self.state = self.STATE_INIT
@@ -56,7 +57,7 @@ class MediaPlayer:
                     'songFile': path,
                     'song': pygame.mixer.Sound(path)
                 })
-                print('Loaded song: %s' % path)
+                printt('Loaded song: %s' % path)
 
         sleep(0.3)
         self.channel1.play(self.s_ready)

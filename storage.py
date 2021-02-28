@@ -1,6 +1,7 @@
 import os
 import json
 import utils
+from utils import printt
 
 class TagStorage:
     def __init__(self, storage_path, dbname='nfc.json'):
@@ -11,8 +12,8 @@ class TagStorage:
             try:
                 os.mkdir(storage_path)
             except PermissionError as pe:
-                print('Fatal error: No permission to write to: %s' % self.storage_path)
-                print('Linux: Run as sudo?')
+                printt('Fatal error: No permission to write to: %s' % self.storage_path)
+                printt('Linux: Run as sudo?')
                 raise pe
     
     def get_tags(self):
@@ -44,8 +45,8 @@ class TagStorage:
                 try:
                     os.remove(self.to_full_path(data['tags'][tag]['name']))
                 except Exception as e:
-                    print('Error while deleting file:')
-                    print(e)
+                    printt('Error while deleting file:')
+                    printt(e)
                 del data['tags'][tag]
 
         self._write(data)
