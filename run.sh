@@ -28,4 +28,4 @@ chmod +x ./update.sh
 
 echo Running...
 echo
-bash -c 'cd /home/pi/nfc-music-box && sudo /usr/bin/python3 main.py' &
+sudo bash -c 'cd /home/pi/nfc-music-box && /usr/bin/python3 -u main.py > /var/log/nfcmb.log 2> /var/log/nfcmb_err.log' &

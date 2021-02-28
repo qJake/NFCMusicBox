@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block body %}
+    <h1>Logs</h1>
+    <div class="top attached segment">
+        <div class="ui header">
+            Log
+        </div>
+    </div>
+    <div class="ui bottom attached segment">
+        <pre>{{ vm.log }}</pre>
+    </div>
+
+    <div class="ui top attached red segment">
+        <div class="ui header">
+            Error
+        </div>
+    </div>
+    <div class="ui bottom attached segment">
+        <pre>{{ vm.err }}</pre>
+    </div>
+{% endblock %}

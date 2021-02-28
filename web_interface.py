@@ -1,6 +1,7 @@
 import main
 import state
 import utils
+import os
 from flask import Flask, render_template, request, redirect, cli
 from werkzeug.utils import secure_filename
 from nfc_reader import start_nfc_thread
@@ -79,6 +80,26 @@ def action_vol():
     except:
         pass
     return redirect('/')
+    
+# LOGS
+
+@app.route('/logs')
+def logs():
+    log_path = '/var/log/nfcmb.log'
+    err_path = '/var/log/nfcmb.log'
+    log = ''
+    err = ''
+    if os.path.exists(log_path):
+        with open(log_path) as f:
+            log = f.read()
+    if os.path.exists(err_path):
+        with open(err_path) as f:
+            err = f.read()
+        
+    return render_template('logs.html', vm={
+        'log': log,
+        'err': err
+    })
     
 # SETTINGS
 
