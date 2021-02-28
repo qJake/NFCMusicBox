@@ -1,4 +1,6 @@
 # TODO: This is pretty aggressive, find a better way to identify just our process.
+cd ~
+
 sudo pkill -f python3
 
 sudo rm -f ./run.sh
