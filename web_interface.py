@@ -88,7 +88,7 @@ def action_vol():
 @app.route('/logs')
 def logs():
     log_path = '/var/log/nfcmb.log'
-    err_path = '/var/log/nfcmb.log'
+    err_path = '/var/log/nfcmb_err.log'
 
     log = ''
     err = ''

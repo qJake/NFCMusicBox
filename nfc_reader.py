@@ -68,7 +68,7 @@ class NFCReader:
                     sleep(3) # don't spam the reader
         except Exception as e:
             printt('[NFC] Error doing NFC stuff!')
-            printt(e)
+            print(e)
             traceback.print_tb(e.__traceback__)
         finally:
             GPIO.cleanup()

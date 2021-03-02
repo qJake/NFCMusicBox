@@ -5,6 +5,9 @@ echo =====================
 echo === NFC Music Box ===
 echo =====================
 echo 
+
+# TODO: If nfcmb.service is not installed, install it.
+
 echo Preparing...
 
 apt-get update -y
@@ -28,4 +31,4 @@ chmod +x ./update.sh
 
 echo Running...
 echo
-sudo bash -c 'cd /home/pi/nfc-music-box && /usr/bin/python3 -u main.py > /var/log/nfcmb.log 2> /var/log/nfcmb_err.log' &
+sudo systemctl start nfcmb.service

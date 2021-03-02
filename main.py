@@ -10,7 +10,7 @@ from storage import TagStorage
 from time import sleep
 from utils import printt
 
-VERSION = '1.6.1'
+VERSION = '1.6.2'
 
 DEVENV = False
 try:
