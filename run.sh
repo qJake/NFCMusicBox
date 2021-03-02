@@ -32,3 +32,6 @@ chmod +x ./update.sh
 echo Running...
 echo
 sudo systemctl start nfcmb.service
+
+echo Done!
+return 0
